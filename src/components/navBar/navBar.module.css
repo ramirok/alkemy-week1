@@ -1,0 +1,40 @@
+.logoContainer {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 100px;
+  color: black;
+  position: relative;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.logo {
+  width: 100%;
+}
+
+.activeItem {
+  background-color: #e6e6ff;
+  border: 1px solid rgb(175, 175, 175);
+}
+
+.menuPanel {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.logoutButton {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .menuPanel {
+    position: relative;
+  }
+  .logoutButton {
+    width: auto;
+  }
+}
