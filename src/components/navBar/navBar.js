@@ -12,12 +12,12 @@ const NavBar = () => {
   };
   return (
     <header>
-      <div className="px-3 py-3 border border-top-0 border-end-0 border-start-0 border-3 border-dark ">
+      <div className="px-3 py-2 py-md-3 border border-top-0 border-end-0 border-start-0 border-3 border-dark ">
         <div className="container">
           <div className="d-flex align-items-center justify-content-center">
             <Link
               to="."
-              className="d-flex align-items-center my-2 me-auto text-dark text-decoration-none"
+              className="d-flex align-items-center me-auto text-dark text-decoration-none"
             >
               <div className={classes.logoContainer}>
                 <Logo className={classes.logo} />

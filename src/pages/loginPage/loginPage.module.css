@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 150px;
+  height: 100px;
   color: black;
   position: relative;
   background-color: white;
@@ -44,4 +44,9 @@
 
 .logo {
   width: 90%;
+}
+
+.error {
+  color: red;
+  text-align: center;
 }

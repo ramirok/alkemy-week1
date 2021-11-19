@@ -30,7 +30,9 @@
 
 .error {
   color: red;
+  text-align: center;
 }
 .succeed {
   color: green;
+  text-align: center;
 }

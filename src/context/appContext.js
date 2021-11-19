@@ -24,6 +24,7 @@ export const AppDataProvider = (props) => {
     });
     if (response.status === 201) {
       const parsedResponse = await response.json();
+      parsedResponse.id = +new Date();
       setPosts((prevState) => [parsedResponse, ...prevState]);
       return true;
     }
@@ -55,10 +56,19 @@ export const AppDataProvider = (props) => {
         return newState;
       });
       return true;
+    } else {
+      setPosts((prevState) => {
+        const newState = [...prevState];
+        const foundIndex = prevState.findIndex((item) => item.id === +post.id);
+        if (foundIndex > -1) {
+          newState[foundIndex] = post;
+        }
+        return newState;
+      });
+      return true;
     }
-
-    return false;
   };
+
   const deletePost = async (id) => {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,

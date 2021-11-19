@@ -12,19 +12,17 @@ const DetailsPage = () => {
   const { posts } = useAppState();
 
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const found = posts.find((post) => post.id === +id);
-        if (data.id) {
-          setPost(found);
-        } else {
+    if (posts.length > 0) {
+      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then((res) => res.json())
+        .then((_) => {
+          const found = posts.find((post) => post.id === +id);
           if (found) {
             setPost(found);
           }
-        }
-        setIsLoading(false);
-      });
+          setIsLoading(false);
+        });
+    }
   }, [id, posts]);
 
   return (

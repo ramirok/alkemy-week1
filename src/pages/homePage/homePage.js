@@ -6,7 +6,10 @@ const HomePage = () => {
   const { posts } = useAppState();
 
   return (
-    <div className={`d-flex flex-column align-items-center`}>
+    <div
+      className={`overflow-auto d-flex flex-column align-items-center`}
+      style={{ height: "calc(100vh - 100px)" }}
+    >
       <h3 className="mt-4">Latest Posts</h3>
       {posts.length > 0 ? (
         posts.map((post) => <PostCard post={post} key={post.id} />)

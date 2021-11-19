@@ -41,7 +41,7 @@ const PostCard = (props) => {
           </Link>
           <Link
             to={`post/${post.id}/edit`}
-            className="btn btn-dark rounded-0 border-4 text-white p-2 nav-item"
+            className="mx-1 btn btn-dark rounded-0 border-4 text-white p-2 nav-item"
           >
             <i className="bi bi-pen me-2"></i>
             Edit
