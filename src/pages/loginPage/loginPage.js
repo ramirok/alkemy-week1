@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
-import classes from "./loginPage.module.css";
-import { saveToken } from "../../libs/localStorage";
 import { useNavigate } from "react-router-dom";
+
+import { ReactComponent as Logo } from "../../assets/logo.svg";
+import { saveToken } from "../../libs/localStorage";
 import FormContainer, {
   MyTextInput,
 } from "../../components/formContainer/formContainer";
+import classes from "./loginPage.module.css";
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");

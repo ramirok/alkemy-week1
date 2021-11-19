@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
+
 import { useAppState } from "../../../context/appContext";
 import classes from "./postCard.module.css";
 

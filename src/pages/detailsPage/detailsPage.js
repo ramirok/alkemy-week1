@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { useAppState } from "../../context/appContext";
 import DetailedPostCard from "../../components/cards/detailedPostCard/detailedPostCard";
 import EmptyCard from "../../components/cards/emptycard/emptyCard";
 import LoadingCard from "../../components/cards/loadingCard/loadingCard";
-import { useAppState } from "../../context/appContext";
 
 const DetailsPage = () => {
   const { id } = useParams();

@@ -10,12 +10,3 @@ export const loadToken = () => {
 export const clearToken = () => {
   localStorage.removeItem("token");
 };
-
-// export const saveState = (state) => {
-//   localStorage.setItem("state", JSON.stringify(state));
-// };
-
-// export const loadState = () => {
-//   const state = localStorage.getItem("state");
-//   return JSON.parse(state);
-// };

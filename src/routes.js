@@ -1,6 +1,7 @@
 import { Routes, Navigate, Route } from "react-router-dom";
-import NavBar from "./components/navBar/navBar";
+
 import { loadToken } from "./libs/localStorage";
+import NavBar from "./components/navBar/navBar";
 import CreatePostPage from "./pages/createPostPage/createPostPage";
 import DetailsPage from "./pages/detailsPage/detailsPage";
 import EditPostPage from "./pages/editPostPage/editPostPage";

@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { useAppState } from "../../context/appContext";
 import FormContainer, {
   MyTextArea,
 } from "../../components/formContainer/formContainer";
-import { Link } from "react-router-dom";
 import LoadingCard from "../../components/cards/loadingCard/loadingCard";
 
 const CreatePostPage = () => {
