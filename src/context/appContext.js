@@ -71,7 +71,7 @@ export const AppDataProvider = (props) => {
       }
     );
     if (response.status === 200) {
-      setPosts((prevState) => prevState.filter((post) => post.id !== +id));
+      setPosts((prevState) => prevState.filter((post) => +post.id !== +id));
       return true;
     }
     return false;
