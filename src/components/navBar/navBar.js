@@ -1,15 +1,13 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { clearToken } from "../../libs/localStorage";
 import classes from "./navBar.module.css";
 
 const NavBar = () => {
-  const navigate = useNavigate();
-
   const submitLogout = () => {
     clearToken();
-    navigate("/");
+    window.location.reload();
   };
 
   return (
