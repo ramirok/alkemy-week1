@@ -14,15 +14,15 @@ const DetailsPage = () => {
 
   useEffect(() => {
     if (posts.length > 0) {
-      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-        .then((res) => res.json())
-        .then((_) => {
-          const found = posts.find((post) => post.id === +id);
-          if (found) {
+      const found = posts.find((post) => +post.id === +id);
+      if (found) {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+          .then((res) => res.json())
+          .then((_) => {
             setPost(found);
-          }
-          setIsLoading(false);
-        });
+            setIsLoading(false);
+          });
+      }
     }
   }, [id, posts]);
 

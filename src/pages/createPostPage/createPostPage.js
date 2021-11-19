@@ -12,74 +12,74 @@ const CreatePostPage = () => {
   const { createPost } = useAppState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const submitCreatePost = async (values, { setSubmitting }) => {
-    setIsLoading(true);
-    const created = await createPost({
-      title: values.title,
-      body: values.body,
-    });
-    if (created) {
-      setSubmitting(false);
-      setMessage({ succeed: true, message: "Post successfully created" });
-    } else {
+  const submitCreatePost = async (values, { setSubmitting, setValues }) => {
+    try {
+      setIsLoading(true);
+      const created = await createPost({
+        title: values.title,
+        body: values.body,
+      });
+      if (created) {
+        setMessage({ succeed: true, message: "Post successfully created" });
+        setValues({ title: "", body: "" });
+      } else {
+        setMessage({ succeed: false, message: "Failed, please try again" });
+      }
+      setIsLoading(false);
+    } catch (error) {
       setMessage({ succeed: false, message: "Failed, please try again" });
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
     <div className={`d-flex flex-column align-items-center`}>
       <h3 className="mt-4">Create Post</h3>
-
-      {isLoading ? (
-        <LoadingCard />
-      ) : message.message ? (
-        <div className="mt-5">
-          <div className={message.succeed ? "text-success" : "text-danger"}>
-            {message.message}
-          </div>
-          {isLoading ? (
+      <FormContainer
+        submitForm={submitCreatePost}
+        values={{ title: "", body: "" }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.title) {
+            errors.title = "Title is required";
+          }
+          if (!values.body) {
+            errors.body = "Body is required";
+          }
+          return errors;
+        }}
+      >
+        <MyTextArea
+          label="Title"
+          name="title"
+          type="text"
+          placeholder="New Post..."
+        />
+        <MyTextArea
+          label="Body"
+          name="body"
+          type="text"
+          placeholder="New Body..."
+        />
+        {isLoading && (
+          <div className="bg-white bg-opacity-75 position-absolute w-100 h-100 d-flex flex-column justify-content-center align-items-center">
             <LoadingCard />
-          ) : (
-            message.succeed && (
-              <Link
-                to="/"
-                className="w-100 btn btn-lg btn-dark rounded-0 border-0 mt-4"
-              >
-                Back To Home
-              </Link>
-            )
-          )}
+          </div>
+        )}
+      </FormContainer>
+      <div className="mt-5 mb-5">
+        <div className={message.succeed ? "text-success" : "text-danger"}>
+          {message.message}
         </div>
-      ) : (
-        <FormContainer
-          submitForm={submitCreatePost}
-          values={{ title: "", body: "" }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.title) {
-              errors.title = "Title is required";
-            }
-            if (!values.body) {
-              errors.body = "Body is required";
-            }
-            return errors;
-          }}
-        >
-          <MyTextArea
-            label="Title"
-            name="title"
-            type="text"
-            placeholder="New Post..."
-          />
-          <MyTextArea
-            label="Body"
-            name="body"
-            type="text"
-            placeholder="New Body..."
-          />
-        </FormContainer>
-      )}
+        {message.succeed && (
+          <Link
+            to="/"
+            className="w-100 btn btn-lg btn-dark rounded-0 border-0 mt-4"
+          >
+            Back To Home
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

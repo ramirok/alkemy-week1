@@ -37,41 +37,25 @@ export const AppDataProvider = (props) => {
   };
 
   const editPost = async (post) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({
-          id: post.id,
-          title: post.title,
-          body: post.body,
-          userId: post.userId,
-        }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
+    await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        id: post.id,
+        title: post.title,
+        body: post.body,
+        userId: post.userId,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+    setPosts((prevState) => {
+      const newState = [...prevState];
+      const foundIndex = prevState.findIndex((item) => +item.id === +post.id);
+      if (foundIndex > -1) {
+        newState[foundIndex] = post;
       }
-    );
-    if (response.status === 200) {
-      const parsedResponse = await response.json();
-      setPosts((prevState) => {
-        const newState = [...prevState];
-        const foundIndex = prevState.findIndex((item) => item.id === +post.id);
-        if (foundIndex > -1) {
-          newState[foundIndex] = parsedResponse;
-        }
-        return newState;
-      });
-      return true;
-    } else {
-      setPosts((prevState) => {
-        const newState = [...prevState];
-        const foundIndex = prevState.findIndex((item) => item.id === +post.id);
-        if (foundIndex > -1) {
-          newState[foundIndex] = post;
-        }
-        return newState;
-      });
-      return true;
-    }
+      return newState;
+    });
+    return true;
   };
 
   const deletePost = async (id) => {
@@ -85,7 +69,6 @@ export const AppDataProvider = (props) => {
       setPosts((prevState) => prevState.filter((post) => post.id !== +id));
       return true;
     }
-
     return false;
   };
 

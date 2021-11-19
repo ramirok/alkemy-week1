@@ -12,11 +12,16 @@ const DetailedPostCard = (props) => {
   const [message, setMessage] = useState("");
 
   const submitDeletePost = async () => {
-    setIsLoading(true);
-    const deleted = await deletePost(post.id);
-    if (deleted) {
-      navigate("/");
-    } else {
+    try {
+      setIsLoading(true);
+      const deleted = await deletePost(post.id);
+      if (deleted) {
+        navigate("/");
+      } else {
+        setMessage("Failed, please try again");
+        setIsLoading(false);
+      }
+    } catch (error) {
       setMessage("Failed, please try again");
       setIsLoading(false);
     }

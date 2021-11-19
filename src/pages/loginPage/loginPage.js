@@ -13,21 +13,25 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const submitLoginForm = async (values, { setSubmitting }) => {
-    console.log("sending");
-    const response = await fetch("http://challenge-react.alkemy.org", {
-      method: "POST",
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.statusText === "OK") {
-      setSubmitting(false);
-      const parsedResponse = await response.json();
-      saveToken({ token: parsedResponse.token });
-      navigate("/");
-    } else {
+    try {
+      const response = await fetch("http://challenge-react.alkemy.org", {
+        method: "POST",
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.statusText === "OK") {
+        setSubmitting(false);
+        const parsedResponse = await response.json();
+        saveToken({ token: parsedResponse.token });
+        navigate("/");
+      } else {
+        setErrorMessage("Failed, please try again");
+      }
+    } catch (error) {
       setErrorMessage("Failed, please try again");
     }
   };

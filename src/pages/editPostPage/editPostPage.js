@@ -17,21 +17,27 @@ const EditPage = () => {
   const [isSubmittin, setIsSubmittin] = useState(false);
 
   const submitEdit = async (values, { setSubmitting }) => {
-    setMessage({ succeed: false, message: "" });
-    setIsSubmittin(true);
-    const editedSucceed = await editPost({
-      id,
-      title: values.title || post.title,
-      body: values.body || post.body,
-      userId: post.userId,
-    });
-    if (editedSucceed) {
-      setSubmitting(false);
-      setMessage({ succeed: true, message: "Post successfully edited" });
-    } else {
+    try {
+      setMessage({ succeed: false, message: "" });
+      setIsSubmittin(true);
+      const editedSucceed = await editPost({
+        id,
+        title: values.title,
+        body: values.body,
+        userId: post.userId,
+      });
+      if (editedSucceed) {
+        setSubmitting(false);
+        setMessage({ succeed: true, message: "Post successfully edited" });
+      } else {
+        setMessage({ succeed: false, message: "Failed, please try again" });
+      }
+      setIsSubmittin(false);
+    } catch (error) {
       setMessage({ succeed: false, message: "Failed, please try again" });
+      setIsSubmittin(false);
+      console.log("nerworl errro");
     }
-    setIsSubmittin(false);
   };
 
   useEffect(() => {
@@ -39,7 +45,7 @@ const EditPage = () => {
       fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((res) => res.json())
         .then((_) => {
-          const found = posts.find((post) => post.id === +id);
+          const found = posts.find((post) => +post.id === +id);
           if (found) {
             setPost(found);
           }
