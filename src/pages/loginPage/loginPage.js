@@ -9,8 +9,8 @@ import FormContainer, {
 import classes from "./loginPage.module.css";
 
 const LoginPage = () => {
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const submitLoginForm = async (values, { setSubmitting }) => {
     try {
@@ -29,9 +29,11 @@ const LoginPage = () => {
         saveToken({ token: parsedResponse.token });
         navigate("/");
       } else {
+        // bad credentials error
         setErrorMessage("Failed, please try again");
       }
     } catch (error) {
+      // network error
       setErrorMessage("Failed, please try again");
     }
   };

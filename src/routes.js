@@ -26,13 +26,11 @@ const ROUTES = [
     key: "APP",
     Component: (props) => {
       return loadToken() ? (
-        // <div className="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
         <>
           <NavBar />
           <RenderRoutes {...props} />
         </>
       ) : (
-        // </div>
         <Navigate to={"/auth/login"} />
       );
     },
@@ -60,22 +58,9 @@ const ROUTES = [
     ],
   },
   {
-    path: "auth/*",
-    key: "AUTH",
-    Component: (props) => {
-      return loadToken() ? (
-        <Navigate to={"/app"} />
-      ) : (
-        <RenderRoutes {...props} />
-      );
-    },
-    routes: [
-      {
-        path: "login",
-        key: "AUTH_LOGIN",
-        Component: LoginPage,
-      },
-    ],
+    path: "auth/login",
+    key: "AUTH_LOGIN",
+    Component: loadToken() ? () => <Navigate to={"/app"} /> : LoginPage,
   },
 ];
 

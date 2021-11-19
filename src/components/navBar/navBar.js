@@ -6,10 +6,12 @@ import classes from "./navBar.module.css";
 
 const NavBar = () => {
   const navigate = useNavigate();
+
   const submitLogout = () => {
     clearToken();
     navigate("/");
   };
+
   return (
     <header>
       <div className="px-3 py-2 py-md-3 border border-top-0 border-end-0 border-start-0 border-3 border-dark ">

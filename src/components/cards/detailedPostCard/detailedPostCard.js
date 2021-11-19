@@ -7,8 +7,8 @@ import classes from "./detailedPostCard.module.css";
 const DetailedPostCard = (props) => {
   const { post } = props;
   const { deletePost } = useAppState();
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const submitDeletePost = async () => {
@@ -18,10 +18,12 @@ const DetailedPostCard = (props) => {
       if (deleted) {
         navigate("/");
       } else {
+        // server error
         setMessage("Failed, please try again");
         setIsLoading(false);
       }
     } catch (error) {
+      // network error
       setMessage("Failed, please try again");
       setIsLoading(false);
     }

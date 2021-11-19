@@ -8,8 +8,8 @@ import FormContainer, {
 import LoadingCard from "../../components/cards/loadingCard/loadingCard";
 
 const CreatePostPage = () => {
-  const [message, setMessage] = useState({ succeed: false, message: "" });
   const { createPost } = useAppState();
+  const [message, setMessage] = useState({ succeed: false, message: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   const submitCreatePost = async (values, { setSubmitting, setValues }) => {
@@ -23,10 +23,12 @@ const CreatePostPage = () => {
         setMessage({ succeed: true, message: "Post successfully created" });
         setValues({ title: "", body: "" });
       } else {
+        // server error
         setMessage({ succeed: false, message: "Failed, please try again" });
       }
       setIsLoading(false);
     } catch (error) {
+      // network error
       setMessage({ succeed: false, message: "Failed, please try again" });
       setIsLoading(false);
     }

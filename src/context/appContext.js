@@ -18,6 +18,8 @@ export const AppDataProvider = (props) => {
   }, []);
 
   const createPost = async ({ title, body }) => {
+    /* jsonplaceholder api don't actually edit their DB, so this fetch
+       is just to simulate the request time, then create the new post in memory if the request was successful. */
     const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -37,6 +39,8 @@ export const AppDataProvider = (props) => {
   };
 
   const editPost = async (post) => {
+    /* jsonplaceholder api don't actually edit their DB, so this fetch
+       is just to simulate the request time, then edit the post in memory regardless of the request outcome. */
     await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -55,10 +59,11 @@ export const AppDataProvider = (props) => {
       }
       return newState;
     });
-    return true;
   };
 
   const deletePost = async (id) => {
+    /* jsonplaceholder api don't actually edit their DB, so this fetch
+       is just to simulate the request time, then delete the post in memory if the request was successful. */
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
       {
@@ -72,11 +77,13 @@ export const AppDataProvider = (props) => {
     return false;
   };
 
+  // fetch posts on start
   useEffect(() => {
     if (posts.length === 0) {
       loadPosts();
     }
   }, [loadPosts, posts]);
+
   const value = {
     posts,
     loadPosts,
@@ -90,6 +97,9 @@ export const AppDataProvider = (props) => {
   );
 };
 
+// ---------------------------------------------------------------------
+
+// custom hook to use the appContext
 export const useAppState = () => {
   const context = useContext(AppContext);
 

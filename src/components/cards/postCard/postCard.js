@@ -15,10 +15,12 @@ const PostCard = (props) => {
       setIsLoading(true);
       const deleted = await deletePost(post.id);
       if (!deleted) {
+        // server error
         setMessage("Failed, please try again");
         setIsLoading(false);
       }
     } catch (error) {
+      // network error
       setMessage("Failed, please try again");
       setIsLoading(false);
     }

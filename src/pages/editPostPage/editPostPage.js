@@ -9,48 +9,48 @@ import FormContainer, {
 } from "../../components/formContainer/formContainer";
 
 const EditPage = () => {
-  const { posts, editPost } = useAppState();
   const { id } = useParams();
+
+  const { posts, editPost } = useAppState();
   const [message, setMessage] = useState({ succeed: false, message: "" });
   const [post, setPost] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSubmittin, setIsSubmittin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // initial loading animation
+  const [isUpdating, setIsUpdating] = useState(false); // updating post loading animation
 
   const submitEdit = async (values, { setSubmitting }) => {
     try {
       setMessage({ succeed: false, message: "" });
-      setIsSubmittin(true);
-      const editedSucceed = await editPost({
+      setIsUpdating(true);
+      await editPost({
         id,
         title: values.title,
         body: values.body,
         userId: post.userId,
       });
-      if (editedSucceed) {
-        setSubmitting(false);
-        setMessage({ succeed: true, message: "Post successfully edited" });
-      } else {
-        setMessage({ succeed: false, message: "Failed, please try again" });
-      }
-      setIsSubmittin(false);
+      setSubmitting(false);
+      setMessage({ succeed: true, message: "Post successfully edited" });
+
+      setIsUpdating(false);
     } catch (error) {
+      // network error
       setMessage({ succeed: false, message: "Failed, please try again" });
-      setIsSubmittin(false);
-      console.log("nerworl errro");
+      setIsUpdating(false);
     }
   };
 
   useEffect(() => {
     if (posts.length > 0) {
-      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-        .then((res) => res.json())
-        .then((_) => {
-          const found = posts.find((post) => +post.id === +id);
-          if (found) {
+      const found = posts.find((post) => +post.id === +id);
+      if (found) {
+        /*  This fetch is just to simulate the request time, then set the local state if the post is found in the global state.
+            This is because there may be new user-created posts that will not exist in jsonplaceholder api */
+        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+          .then((res) => res.json())
+          .then((_) => {
             setPost(found);
-          }
-          setIsLoading(false);
-        });
+            setIsLoading(false);
+          });
+      }
     }
   }, [id, posts]);
 
@@ -91,7 +91,7 @@ const EditPage = () => {
             type="text"
             placeholder="New Body..."
           />
-          {isSubmittin && (
+          {isUpdating && (
             <div className="bg-white bg-opacity-75 position-absolute w-100 h-100 d-flex flex-column justify-content-center align-items-center">
               <LoadingCard />
             </div>

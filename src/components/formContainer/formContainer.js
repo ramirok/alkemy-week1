@@ -2,6 +2,7 @@ import { Formik, Form, useField } from "formik";
 
 import classes from "./formContainer.module.css";
 
+// component for input tag
 export const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
@@ -23,6 +24,9 @@ export const MyTextInput = ({ label, ...props }) => {
   );
 };
 
+// ---------------------------------------------------------------------
+
+// component for textarea tag
 export const MyTextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
@@ -45,6 +49,8 @@ export const MyTextArea = ({ label, ...props }) => {
     </>
   );
 };
+
+// ---------------------------------------------------------------------
 
 const FormContainer = (props) => {
   const { submitForm, validate, values } = props;
