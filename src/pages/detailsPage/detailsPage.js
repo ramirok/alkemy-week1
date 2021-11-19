@@ -14,6 +14,7 @@ const DetailsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isSubscribed = true; //this will avoid setting states after the component is unmounted
     if (posts.length > 0) {
       const found = posts.find((post) => +post.id === +id);
       /*  This fetch is just to simulate the request time, then set the local state if the post is found in the global state.
@@ -21,12 +22,17 @@ const DetailsPage = () => {
       fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((res) => res.json())
         .then((_) => {
-          if (found) {
-            setPost(found);
+          if (isSubscribed) {
+            if (found) {
+              setPost(found);
+            }
+            setIsLoading(false);
           }
-          setIsLoading(false);
         });
     }
+    return () => {
+      isSubscribed = false;
+    };
   }, [id, posts]);
 
   return (
