@@ -1,5 +1,4 @@
 import { useState } from "react";
-import classes from "./createPostPage.module.css";
 import { useAppState } from "../../context/appContext";
 import FormContainer, {
   MyTextArea,
@@ -35,7 +34,7 @@ const CreatePostPage = () => {
         <LoadingCard />
       ) : message.message ? (
         <div className="mt-5">
-          <div className={message.succeed ? classes.succeed : classes.error}>
+          <div className={message.succeed ? "text-success" : "text-danger"}>
             {message.message}
           </div>
           {isLoading ? (

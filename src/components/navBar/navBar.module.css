@@ -15,15 +15,15 @@
   width: 100%;
 }
 
-.activeItem {
-  background-color: #e6e6ff;
-  border: 1px solid rgb(175, 175, 175);
-}
-
 .menuPanel {
   position: absolute;
   width: 100%;
   z-index: 1;
+}
+
+.activeItem {
+  background-color: #e6e6ff;
+  border: 1px solid rgb(175, 175, 175);
 }
 
 .logoutButton {

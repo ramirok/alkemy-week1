@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import classes from "./editPage.module.css";
 import { useAppState } from "../../context/appContext";
 import LoadingCard from "../../components/cards/loadingCard/loadingCard";
 import EmptyCard from "../../components/cards/emptycard/emptyCard";
@@ -93,7 +92,7 @@ const EditPage = () => {
         </FormContainer>
       )}
       <div className="mt-5 mb-5">
-        <div className={message.succeed ? classes.succeed : classes.error}>
+        <div className={message.succeed ? "text-success" : "text-danger"}>
           {message.message}
         </div>
         {message.succeed && (
