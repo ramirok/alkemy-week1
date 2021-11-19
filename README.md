@@ -1,4 +1,4 @@
-### Start dev server
+### Download and start dev server
 
     git clone https://github.com/ramirok/alkemy-week1.git
     cd alkemy-week1
