@@ -41,16 +41,16 @@ const EditPage = () => {
   useEffect(() => {
     if (posts.length > 0) {
       const found = posts.find((post) => +post.id === +id);
-      if (found) {
-        /*  This fetch is just to simulate the request time, then set the local state if the post is found in the global state.
-            This is because there may be new user-created posts that will not exist in jsonplaceholder api */
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-          .then((res) => res.json())
-          .then((_) => {
+      /*  This fetch is just to simulate the request time, then set the local state if the post is found in the global state.
+      This is because there may be new user-created posts that will not exist in jsonplaceholder api */
+      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then((res) => res.json())
+        .then((_) => {
+          if (found) {
             setPost(found);
-            setIsLoading(false);
-          });
-      }
+          }
+          setIsLoading(false);
+        });
     }
   }, [id, posts]);
 
